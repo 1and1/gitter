@@ -15,10 +15,10 @@
 */
 package org.oneandone.gitter;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
@@ -53,7 +53,7 @@ public class Main {
         }
         Main main = new Main(cliOptions);
 
-        for (File dir : cliOptions.getFiles()) {
+        for (Path dir : cliOptions.getFiles()) {
             try (GitDirectory directory = new GitDirectory(dir)) {
                 main.processRepository(directory);
             }

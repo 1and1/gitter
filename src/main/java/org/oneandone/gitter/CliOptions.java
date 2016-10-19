@@ -62,7 +62,7 @@ public class CliOptions {
     
     @Argument(metaVar = "DIR", usage = "GIT repository dirs.")
     @Getter @Setter
-    private List<File> files = new ArrayList<>();
+    private List<Path> files = new ArrayList<>();
 
     public boolean isHelp() {
         return help;

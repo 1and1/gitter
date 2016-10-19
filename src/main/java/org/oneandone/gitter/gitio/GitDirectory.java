@@ -18,6 +18,8 @@ package org.oneandone.gitter.gitio;
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Iterator;
@@ -39,13 +41,13 @@ import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 public class GitDirectory implements RepositoryWalker, Closeable {
     
     private final Repository repository;
-    private final File dir;
+    private final Path dir;
     
-    public GitDirectory(File dir) throws IOException {
+    public GitDirectory(Path dir) throws IOException {
         this.dir = Objects.requireNonNull(dir);
-        File gitDir = guessGitDir(dir);
+        Path gitDir = guessGitDir(dir);
         FileRepositoryBuilder builder = new FileRepositoryBuilder();
-        this.repository = builder.setGitDir(gitDir)
+        this.repository = builder.setGitDir(gitDir.toFile())
                 .readEnvironment() // scan environment GIT_* variables
                 .findGitDir() // scan up the file system tree
                 .build();
@@ -105,16 +107,17 @@ public class GitDirectory implements RepositoryWalker, Closeable {
         return targetStream;
     }
     
-    private static File guessGitDir(File in) throws IOException {
-        if (in.getName().equals(".git")) {
+    private static Path guessGitDir(Path in) throws IOException {
+        if (in.getName(in.getNameCount() - 1).toString().equals(".git")) {
             return in;
         }
         
-        File gitDir = new File(in, ".git");
-        if (gitDir.exists()) {
+        Path gitDir = in.resolve(".git");
+        if (Files.isDirectory(gitDir)) {
             return gitDir;
         }
         
-        throw new IOException("Not containing a .git directory: "+in.getAbsolutePath());
+        throw new IOException("Not containing a .git directory: "+
+                in.toAbsolutePath().toString());
     }
 }
