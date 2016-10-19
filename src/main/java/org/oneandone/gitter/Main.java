@@ -46,6 +46,25 @@ public class Main {
         this.perProjectResults = new HashMap<>();
     }
 
+    private void output() throws IOException {
+        PrintStream out = System.out;
+        if (cliOptions.getOutput() != null) {
+            out = new PrintStream(Files.newOutputStream(cliOptions.getOutput()));
+        }
+        new CSVConsumer(out).consume(perProjectResults, (o) -> cliOptions.getFlavor().getInstance(cliOptions).toString(o));
+        out.close();
+    }
+
+    private void processRepository(GitDirectory directory) throws IOException {
+        IntervalMap receiver = cliOptions.getFlavor().getInstance(cliOptions);
+        receiver.clear();
+        directory.readRepository()
+                .filter(c -> cliOptions.getFrom() != null ? c.getWhen().toLocalDate().toEpochDay() >= cliOptions.getFrom().toEpochDay() : true)
+                .filter(c -> cliOptions.getTo() != null ? c.getWhen().toLocalDate().toEpochDay() <= cliOptions.getTo().toEpochDay() : true)
+                .forEach(c -> receiver.receive(c, cliOptions.getTimeInterval().truncate(c.getWhen().toLocalDate())));
+        perProjectResults.put(directory.getName(), receiver.copy());
+    }
+    
     public static void main(String ...args) throws IOException {
         CliOptions cliOptions = CliOptions.create(args);
         if (cliOptions == null) {
@@ -59,22 +78,6 @@ public class Main {
             }
         }
         
-        PrintStream out = System.out;
-        if (cliOptions.getOutput() != null) {
-            out = new PrintStream(Files.newOutputStream(cliOptions.getOutput()));
-        }
-        new CSVConsumer(out).consume(main.perProjectResults, 
-                o -> cliOptions.getFlavor().getInstance(cliOptions).toString(o));
-        out.close();
-    }
-
-    private void processRepository(GitDirectory directory) throws IOException {
-        IntervalMap receiver = cliOptions.getFlavor().getInstance(cliOptions);
-        receiver.clear();
-        directory.readRepository()
-                .filter(c -> cliOptions.getFrom() != null ? c.getWhen().toLocalDate().toEpochDay() >= cliOptions.getFrom().toEpochDay() : true)
-                .filter(c -> cliOptions.getTo() != null ? c.getWhen().toLocalDate().toEpochDay() <= cliOptions.getTo().toEpochDay() : true)
-                .forEach(c -> receiver.receive(c, cliOptions.getTimeInterval().truncate(c.getWhen().toLocalDate())));
-        perProjectResults.put(directory.getName(), receiver.copy());
+        main.output();
     }
 }
