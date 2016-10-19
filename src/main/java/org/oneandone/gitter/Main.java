@@ -34,14 +34,15 @@ import org.oneandone.gitter.stats.IntervalMap;
  */
 @Slf4j
 public class Main {
+
+    /** Command line options. */
     private final CliOptions cliOptions;
     
-    private final IntervalMap receiver;
+    /** Per project map of histograms. */
     private final Map<String, Map<LocalDate, ?>> perProjectResults;
     
     Main(CliOptions cliOptions) {
         this.cliOptions = Objects.requireNonNull(cliOptions);
-        this.receiver = cliOptions.getFlavor().getInstance(cliOptions);
         this.perProjectResults = new HashMap<>();
     }
 
@@ -62,11 +63,13 @@ public class Main {
         if (cliOptions.getOutput() != null) {
             out = new PrintStream(Files.newOutputStream(cliOptions.getOutput()));
         }
-        new CSVConsumer(out).consume(main.perProjectResults, o -> main.receiver.toString(o));
+        new CSVConsumer(out).consume(main.perProjectResults, 
+                o -> cliOptions.getFlavor().getInstance(cliOptions).toString(o));
         out.close();
     }
 
     private void processRepository(GitDirectory directory) throws IOException {
+        IntervalMap receiver = cliOptions.getFlavor().getInstance(cliOptions);
         receiver.clear();
         directory.readRepository()
                 .filter((c) -> cliOptions.getFrom() != null ? c.getWhen().toLocalDate().toEpochDay() >= cliOptions.getFrom().toEpochDay() : true)
