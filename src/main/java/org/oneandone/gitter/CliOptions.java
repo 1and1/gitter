@@ -17,6 +17,7 @@ package org.oneandone.gitter;
 
 
 import java.io.File;
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +54,7 @@ public class CliOptions {
     
     @Option(name = "-o", aliases = {"--output"}, metaVar = "FILE", usage = "The output file.")
     @Getter @Setter
-    private File output;
+    private Path output;
     
     @Option(name = "-I", aliases = {"--interval"}, metaVar = "INTERVAL", usage = "The time interval to use.")
     @Getter @Setter

@@ -16,10 +16,9 @@
 package org.oneandone.gitter;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.lang.reflect.InvocationTargetException;
+import java.nio.file.Files;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
@@ -61,7 +60,7 @@ public class Main {
         
         PrintStream out = System.out;
         if (cliOptions.getOutput() != null) {
-            out = new PrintStream(new FileOutputStream(cliOptions.getOutput()));
+            out = new PrintStream(Files.newOutputStream(cliOptions.getOutput()));
         }
         new CSVConsumer(out).consume(main.perProjectResults, o -> main.receiver.toString(o));
         out.close();
