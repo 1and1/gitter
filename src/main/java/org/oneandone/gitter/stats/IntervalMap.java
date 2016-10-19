@@ -21,7 +21,6 @@ import java.util.Map;
 import java.util.Objects;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import org.oneandone.gitter.CliOptions;
 import org.oneandone.gitter.TimeInterval;
 import org.oneandone.gitter.ReportSetup;
 import org.oneandone.gitter.gitio.Commit;
