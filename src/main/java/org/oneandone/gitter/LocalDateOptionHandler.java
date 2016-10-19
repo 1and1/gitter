@@ -27,7 +27,7 @@ import org.kohsuke.args4j.spi.Setter;
  * @see LocalDate
  * @author Stephan Fuhrmann
  */
-public class LocalDateOptionHandler extends OneArgumentOptionHandler<LocalDate> {
+class LocalDateOptionHandler extends OneArgumentOptionHandler<LocalDate> {
 
     public LocalDateOptionHandler(CmdLineParser parser, OptionDef option, Setter<? super LocalDate> setter) {
         super(parser, option, setter);

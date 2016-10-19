@@ -63,7 +63,7 @@ public class GitDirectory implements RepositoryWalker, Closeable {
         repository.close();
     }
     
-    private class MyIterator implements Iterator<Commit> {
+    private static class MyIterator implements Iterator<Commit> {
 
         private Iterator<RevCommit> iterator;
 

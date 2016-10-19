@@ -34,7 +34,7 @@ import org.kohsuke.args4j.OptionHandlerRegistry;
  *
  * @author Stephan Fuhrmann
  */
-public class CliOptions {
+class CliOptions {
 
     @Option(name = "-h", aliases = {"--help"}, usage = "Show this help message.", help = true)
     private boolean help;
