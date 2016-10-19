@@ -16,7 +16,6 @@
 package org.oneandone.gitter;
 
 
-import java.io.File;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.ArrayList;
