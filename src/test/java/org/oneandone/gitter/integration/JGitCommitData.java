@@ -39,6 +39,7 @@ class JGitCommitData {
         this.date = date;
     }
 
+    /** Performs a git commit. */
     public void commit(Git git) {
         try {
             PersonIdent ident = new PersonIdent(user, email, date, TimeZone.getTimeZone("UTC"));
