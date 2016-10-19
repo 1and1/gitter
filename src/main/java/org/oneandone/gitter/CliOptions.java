@@ -31,7 +31,7 @@ import org.kohsuke.args4j.OptionHandlerRegistry;
 
 /**
  * Command line options.
- *
+ * @see #create(java.lang.String[]) 
  * @author Stephan Fuhrmann
  */
 class CliOptions {

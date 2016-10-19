@@ -19,8 +19,8 @@ import java.time.LocalDate;
 import lombok.Getter;
 
 /**
- *
- * @author stephan
+ * Settings for a report.
+ * @author Stephan Fuhrmann
  */
 public class ReportSetup {
     @Getter

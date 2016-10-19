@@ -20,7 +20,7 @@ import java.util.stream.Stream;
 
 /**
  * Walks along the commits in a Git repository.
- * @author stephan
+ * @author Stephan Fuhrmann
  */
 public interface RepositoryWalker {
     /** Gets the repository name.

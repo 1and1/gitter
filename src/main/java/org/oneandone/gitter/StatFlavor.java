@@ -39,7 +39,7 @@ public enum StatFlavor {
         this.intervalMap = intervalMap;
     }
 
-    public IntervalMap getInstance(CliOptions cliOptions) {
+    IntervalMap getInstance(CliOptions cliOptions) {
         try {
             Constructor<IntervalMap> ctor = (Constructor<IntervalMap>) intervalMap.getConstructor(ReportSetup.class); 
             return ctor.newInstance(cliOptions.getReportSetup());
