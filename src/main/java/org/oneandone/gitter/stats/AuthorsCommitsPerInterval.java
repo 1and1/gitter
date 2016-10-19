@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
-import org.oneandone.gitter.CliOptions;
+import org.oneandone.gitter.ReportSetup;
 import org.oneandone.gitter.gitio.Commit;
 
 /**
@@ -30,8 +30,8 @@ import org.oneandone.gitter.gitio.Commit;
 @Slf4j
 public class AuthorsCommitsPerInterval extends IntervalMap<Map<String,Integer>> {
     
-    public AuthorsCommitsPerInterval(CliOptions cliOptions) {
-        super(cliOptions);
+    public AuthorsCommitsPerInterval(ReportSetup setup) {
+        super(setup);
     }
     
     @Override

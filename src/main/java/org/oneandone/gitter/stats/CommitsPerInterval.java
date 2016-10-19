@@ -17,7 +17,7 @@ package org.oneandone.gitter.stats;
 
 import java.time.LocalDate;
 import lombok.extern.slf4j.Slf4j;
-import org.oneandone.gitter.CliOptions;
+import org.oneandone.gitter.ReportSetup;
 import org.oneandone.gitter.gitio.Commit;
 
 /**
@@ -27,8 +27,8 @@ import org.oneandone.gitter.gitio.Commit;
 @Slf4j
 public class CommitsPerInterval extends IntervalMap<Long> {
 
-    public CommitsPerInterval(CliOptions cliOptions) {
-        super(cliOptions);
+    public CommitsPerInterval(ReportSetup setup) {
+        super(setup);
     }
     
     @Override

@@ -20,7 +20,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
-import org.oneandone.gitter.CliOptions;
+import org.oneandone.gitter.ReportSetup;
 import org.oneandone.gitter.gitio.Commit;
 
 /**
@@ -30,8 +30,8 @@ import org.oneandone.gitter.gitio.Commit;
 @Slf4j
 public class AuthorsPerInterval extends IntervalMap<Set<String>> {
 
-    public AuthorsPerInterval(CliOptions cliOptions) {
-        super(cliOptions);
+    public AuthorsPerInterval(ReportSetup setup) {
+        super(setup);
     }
     
     @Override

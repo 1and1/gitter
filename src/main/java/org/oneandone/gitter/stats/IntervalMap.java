@@ -23,6 +23,7 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.oneandone.gitter.CliOptions;
 import org.oneandone.gitter.TimeInterval;
+import org.oneandone.gitter.ReportSetup;
 import org.oneandone.gitter.gitio.Commit;
 
 /**
@@ -51,7 +52,7 @@ public abstract class IntervalMap<V> {
      * @param from start date (inclusive).
      * @param to end date (inclusive).
      */
-    public IntervalMap(TimeInterval interval, LocalDate from, LocalDate to) {
+    private IntervalMap(TimeInterval interval, LocalDate from, LocalDate to) {
         map = new HashMap<>();
         this.timeInterval = Objects.requireNonNull(interval);
         this.from = Objects.requireNonNull(from);
@@ -62,8 +63,8 @@ public abstract class IntervalMap<V> {
     /** Gets the interval map data from the given CliOptions object.
      * @see #IntervalMap(org.oneandone.gitter.TimeInterval, java.time.LocalDate, java.time.LocalDate) 
      */
-    public IntervalMap(CliOptions cliOptions) {
-        this(cliOptions.getTimeInterval(), cliOptions.getFrom(), cliOptions.getTo());
+    public IntervalMap(ReportSetup setup) {
+        this(setup.getInterval(), setup.getFrom(), setup.getTo());
     }
 
     

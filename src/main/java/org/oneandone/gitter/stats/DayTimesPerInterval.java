@@ -22,7 +22,7 @@ import java.util.Optional;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import org.oneandone.gitter.CliOptions;
+import org.oneandone.gitter.ReportSetup;
 import org.oneandone.gitter.gitio.Commit;
 
 /**
@@ -57,8 +57,8 @@ public class DayTimesPerInterval extends IntervalMap<DayTimesPerInterval.MinMax>
         }
     }
     
-    public DayTimesPerInterval(CliOptions cliOptions) {
-        super(cliOptions);
+    public DayTimesPerInterval(ReportSetup setup) {
+        super(setup);
     }
     
     @Override
