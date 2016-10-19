@@ -25,8 +25,8 @@ import org.junit.Test;
 import org.oneandone.gitter.Main;
 
 /**
- *
- * @author stephan
+ * Tests {@link org.oneandone.gitter.stats.CommitsPerInterval}.
+ * @author Stephan Fuhrmann
  */
 public class CommitsPerInterval extends Integration {
     
