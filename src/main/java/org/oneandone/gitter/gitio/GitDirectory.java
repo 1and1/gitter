@@ -16,7 +16,6 @@
 package org.oneandone.gitter.gitio;
 
 import java.io.Closeable;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -88,6 +87,7 @@ public class GitDirectory implements RepositoryWalker, Closeable {
             commit.setAuthorEmail(revCommit.getAuthorIdent().getEmailAddress());
             commit.setAuthorName(revCommit.getAuthorIdent().getName());
             commit.setWhen(LocalDateTime.ofInstant(revCommit.getAuthorIdent().getWhen().toInstant(), ZoneId.systemDefault()));
+            commit.setShortMessage(revCommit.getShortMessage());
             
             return commit;
         }

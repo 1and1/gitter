@@ -30,4 +30,6 @@ public class Commit {
     private String authorEmail;
     @Getter @Setter
     private LocalDateTime when;
+    @Getter @Setter
+    private String shortMessage;
 }

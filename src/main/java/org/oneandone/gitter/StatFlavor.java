@@ -15,13 +15,24 @@
 */
 package org.oneandone.gitter;
 
+import java.beans.BeanInfo;
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import org.oneandone.gitter.stats.CommitsPerInterval;
 import org.oneandone.gitter.stats.AuthorsCommitsPerInterval;
 import org.oneandone.gitter.stats.AuthorsPerInterval;
 import org.oneandone.gitter.stats.DayTimesPerInterval;
 import org.oneandone.gitter.stats.IntervalMap;
+import org.oneandone.gitter.stats.MessagePatternPerInterval;
 
 /**
  * Enum of different statistics that are possible.
@@ -31,7 +42,8 @@ public enum StatFlavor {
     COMMITS_PER_INTERVAL(CommitsPerInterval.class),
     AUTHORS_PER_INTERVAL(AuthorsPerInterval.class),
     AUTHORS_COMMITS_PER_INTERVAL(AuthorsCommitsPerInterval.class),
-    DAYTIMES_PER_INTERVAL(DayTimesPerInterval.class);
+    DAYTIMES_PER_INTERVAL(DayTimesPerInterval.class),
+    MESSAGE_PATTERN_PER_INTERVAL(MessagePatternPerInterval.class);
     
     private final Class<? extends IntervalMap> intervalMap;
 
@@ -42,7 +54,8 @@ public enum StatFlavor {
     IntervalMap getInstance(CliOptions cliOptions) {
         try {
             Constructor<IntervalMap> ctor = (Constructor<IntervalMap>) intervalMap.getConstructor(ReportSetup.class); 
-            return ctor.newInstance(cliOptions.getReportSetup());
+            IntervalMap result = ctor.newInstance(cliOptions.getReportSetup());
+            return result;
         } catch (InvocationTargetException | IllegalArgumentException | IllegalAccessException | InstantiationException | SecurityException | NoSuchMethodException ex) {
             throw new RuntimeException(ex); // no exception pollution
         }

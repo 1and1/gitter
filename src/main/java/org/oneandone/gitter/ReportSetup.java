@@ -16,6 +16,7 @@
 package org.oneandone.gitter;
 
 import java.time.LocalDate;
+import java.util.regex.Pattern;
 import lombok.Getter;
 
 /**
@@ -29,10 +30,14 @@ public class ReportSetup {
     private final LocalDate from; 
     @Getter
     private final LocalDate to;
+    @Getter
+    private final Pattern shortMessageRegex;
 
-    public ReportSetup(TimeInterval interval, LocalDate from, LocalDate to) {
+    public ReportSetup(TimeInterval interval, LocalDate from, LocalDate to, Pattern shortMessageRegex) {
         this.interval = interval;
         this.from = from;
         this.to = to;
+        this.shortMessageRegex = shortMessageRegex;
     }
 }
+

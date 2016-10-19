@@ -21,6 +21,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.regex.Pattern;
 import lombok.Getter;
 import lombok.Setter;
 import org.kohsuke.args4j.Argument;
@@ -58,6 +59,10 @@ class CliOptions {
     @Option(name = "-I", aliases = {"--interval"}, metaVar = "INTERVAL", usage = "The time interval to use.")
     @Getter @Setter
     private TimeInterval timeInterval = TimeInterval.MONTHS;
+  
+    @Option(name = "-p", aliases = {"--pattern"}, metaVar = "REGEX", usage = "Short message pattern.")
+    @Getter @Setter
+    private Pattern shortMessageRegex;
     
     @Argument(metaVar = "DIR", usage = "GIT repository dirs.")
     @Getter @Setter
@@ -94,6 +99,6 @@ class CliOptions {
     }
     
     public ReportSetup getReportSetup() {
-        return new ReportSetup(timeInterval, from, to);
+        return new ReportSetup(timeInterval, from, to, shortMessageRegex);
     }
 }
