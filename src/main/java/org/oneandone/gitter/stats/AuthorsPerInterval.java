@@ -20,8 +20,6 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.revwalk.RevCommit;
 import org.oneandone.gitter.CliOptions;
 import org.oneandone.gitter.gitio.Commit;
 

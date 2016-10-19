@@ -21,8 +21,6 @@ import java.util.Map;
 import java.util.Objects;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.revwalk.RevCommit;
 import org.oneandone.gitter.CliOptions;
 import org.oneandone.gitter.TimeInterval;
 import org.oneandone.gitter.gitio.Commit;
@@ -37,23 +35,16 @@ import org.oneandone.gitter.gitio.Commit;
 public abstract class IntervalMap<V> {
     
     @Getter
-    private Map<LocalDate, V> map;
+    private final Map<LocalDate, V> map;
 
     @Getter
-    private TimeInterval timeInterval;
+    private final TimeInterval timeInterval;
     
     @Getter
-    private LocalDate from;
+    private final LocalDate from;
     
     @Getter
-    private LocalDate to;
-    
-    /** Gets the interval map data from the given CliOptions object.
-     * @see #IntervalMap(org.oneandone.gitter.TimeInterval, java.time.LocalDate, java.time.LocalDate) 
-     */
-    public IntervalMap(CliOptions cliOptions) {
-        this(cliOptions.getTimeInterval(), cliOptions.getFrom(), cliOptions.getTo());
-    }
+    private final LocalDate to;
     
     /** Builds an interval map. 
      * @param interval the interval to truncate to.
@@ -67,6 +58,14 @@ public abstract class IntervalMap<V> {
         this.to = Objects.requireNonNull(to);
         clear();
     }
+    
+    /** Gets the interval map data from the given CliOptions object.
+     * @see #IntervalMap(org.oneandone.gitter.TimeInterval, java.time.LocalDate, java.time.LocalDate) 
+     */
+    public IntervalMap(CliOptions cliOptions) {
+        this(cliOptions.getTimeInterval(), cliOptions.getFrom(), cliOptions.getTo());
+    }
+
     
     /** Creates a copy of the map data for further processing.
      * @return a copy that belongs to the caller.
