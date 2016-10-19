@@ -82,7 +82,7 @@ public class Integration {
     }
     
     @Test
-    public void testOne() throws GitAPIException, IOException, IllegalAccessException, InstantiationException, NoSuchMethodException, IllegalArgumentException, InvocationTargetException {
+    public void testOne() throws GitAPIException, IOException {
                 
         PersonIdent ident = new PersonIdent("John Doe", "doe@test.com", dateOf(2016, Month.JANUARY, 12, 11, 0), TimeZone.getTimeZone("UTC"));
         git.commit().setAuthor(ident).setMessage("My Message").call();

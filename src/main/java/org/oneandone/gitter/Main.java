@@ -40,13 +40,13 @@ public class Main {
     private final IntervalMap receiver;
     private final Map<String, Map<LocalDate, ?>> perProjectResults;
     
-    Main(CliOptions cliOptions) throws IllegalAccessException, InstantiationException, NoSuchMethodException, IllegalArgumentException, InvocationTargetException {
+    Main(CliOptions cliOptions) {
         this.cliOptions = Objects.requireNonNull(cliOptions);
         this.receiver = cliOptions.getFlavor().getInstance(cliOptions);
         this.perProjectResults = new HashMap<>();
     }
 
-    public static void main(String[] args) throws IOException, IllegalAccessException, InstantiationException, NoSuchMethodException, IllegalArgumentException, InvocationTargetException {
+    public static void main(String[] args) throws IOException {
         CliOptions cliOptions = CliOptions.create(args);
         if (cliOptions == null) {
             return;

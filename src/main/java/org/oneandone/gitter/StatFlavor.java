@@ -39,8 +39,12 @@ public enum StatFlavor {
         this.intervalMap = intervalMap;
     }
 
-    public IntervalMap getInstance(CliOptions cliOptions) throws IllegalAccessException, InstantiationException, NoSuchMethodException, IllegalArgumentException, InvocationTargetException {
-        Constructor<IntervalMap> ctor = (Constructor<IntervalMap>) intervalMap.getConstructor(CliOptions.class);
-        return ctor.newInstance(cliOptions); 
+    public IntervalMap getInstance(CliOptions cliOptions) {
+        try {
+            Constructor<IntervalMap> ctor = (Constructor<IntervalMap>) intervalMap.getConstructor(CliOptions.class); 
+            return ctor.newInstance(cliOptions);
+        } catch (InvocationTargetException | IllegalArgumentException | IllegalAccessException | InstantiationException | SecurityException | NoSuchMethodException ex) {
+            throw new RuntimeException(ex); // no exception pollution
+        }
    }
 }
