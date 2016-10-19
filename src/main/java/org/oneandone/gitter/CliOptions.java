@@ -93,7 +93,7 @@ class CliOptions {
         }
     }
     
-    public ReportSetup getIntervalSetup() {
+    public ReportSetup getReportSetup() {
         return new ReportSetup(timeInterval, from, to);
     }
 }

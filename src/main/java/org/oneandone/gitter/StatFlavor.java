@@ -41,8 +41,8 @@ public enum StatFlavor {
 
     public IntervalMap getInstance(CliOptions cliOptions) {
         try {
-            Constructor<IntervalMap> ctor = (Constructor<IntervalMap>) intervalMap.getConstructor(CliOptions.class); 
-            return ctor.newInstance(cliOptions);
+            Constructor<IntervalMap> ctor = (Constructor<IntervalMap>) intervalMap.getConstructor(ReportSetup.class); 
+            return ctor.newInstance(cliOptions.getReportSetup());
         } catch (InvocationTargetException | IllegalArgumentException | IllegalAccessException | InstantiationException | SecurityException | NoSuchMethodException ex) {
             throw new RuntimeException(ex); // no exception pollution
         }

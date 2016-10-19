@@ -18,35 +18,33 @@ package org.oneandone.gitter.integration;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.ZoneOffset;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
-import java.util.TimeZone;
+import java.util.stream.Stream;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.lib.PersonIdent;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Test;
-import org.oneandone.gitter.Main;
 
 /**
- *
- * @author stephan
+ * Base class for integration tests with commit fixture support.
+ * @see #of(java.lang.String...) 
+ * @author Stephan Fuhrmann
  */
 public class Integration {
 
     /** The output tmp file. */
-    private Path tmpOutput;
+    protected Path tmpOutput;
     /** Temporary Git repo. */
-    private Path tmpRepo;
+    protected Path tmpRepo;
     
     /** The temporary JGit repo. */
-    private Git git;
+    protected Git git;
     
     private static void deleteAll(Path f) {
         try {
@@ -74,40 +72,34 @@ public class Integration {
         tmpOutput = Files.createTempFile("gitter-int", "txt");
     }
     
-    private Date dateOf(int year, Month month, int dayOfMonth, int hour, int minute) {
+    protected Date dateOf(int year, Month month, int dayOfMonth, int hour, int minute) {
         LocalDateTime time = LocalDateTime.of(year, month, dayOfMonth, hour, minute);
         Date date = new Date(time.toInstant(ZoneOffset.UTC).toEpochMilli());
         return date;
     }
     
-    @Test
-    public void testOne() throws GitAPIException, IOException {
-                
-        PersonIdent ident = new PersonIdent("John Doe", "doe@test.com", dateOf(2016, Month.JANUARY, 12, 11, 0), TimeZone.getTimeZone("UTC"));
-        git.commit().setAuthor(ident).setMessage("My Message").call();
-        ident = new PersonIdent("John Doe", "doe@test.com", dateOf(2016, Month.FEBRUARY, 1, 11, 0), TimeZone.getTimeZone("UTC"));
-        git.commit().setAuthor(ident).setMessage("My Message 2").call();
-        ident = new PersonIdent("John Doe", "doe@test.com", dateOf(2016, Month.APRIL, 1, 12, 0), TimeZone.getTimeZone("UTC"));
-        git.commit().setAuthor(ident).setMessage("My Message 3").call();
-        ident = new PersonIdent("John Doe", "doe@test.com", dateOf(2016, Month.APRIL, 1, 14, 0), TimeZone.getTimeZone("UTC"));
-        git.commit().setAuthor(ident).setMessage("My Message 4").call();
-        ident = new PersonIdent("John Doe", "doe@test.com", dateOf(2016, Month.AUGUST, 1, 14, 0), TimeZone.getTimeZone("UTC"));
-        git.commit().setAuthor(ident).setMessage("My Message 4").call();
-        
-        Main.main(new String[] {
-            "--from", "2016-01-01",
-            "--to", "2016-04-01",
-            "--output", tmpOutput.toAbsolutePath().toString(),
-            tmpRepo.toAbsolutePath().toString(),
-        });
-        
-        List<String> actual = Files.readAllLines(tmpOutput);
-        List<String> expected = Arrays.asList(
-"Date,"+tmpRepo.getFileName().toString(),
-"2016-01-01,1",
-"2016-02-01,1",
-"2016-03-01,0",
-"2016-04-01,2");
-        Assert.assertEquals(expected, actual);
+    
+    private final static SimpleDateFormat dateFormat = new SimpleDateFormat("yyy-MM-dd'T'HH:mm:ss");
+    
+    /** Creates a commit of a single commit descriptor line.
+     * @param in a line of the format "Commit Message,John Doe,doe@test.com,2016-01-01T12:00:00"
+     * @return the commit data object that can create a commit.
+     */
+    protected static JGitCommitData of(String in) {
+        try {
+            String parts[] = in.split(",");
+            return new JGitCommitData(parts[0], parts[1], parts[2], dateFormat.parse(parts[3]));
+        } catch (ParseException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+    
+    /** Creates commits of a commit descriptor lines.
+     * @param in lines of the format "Commit Message,John Doe,doe@test.com,2016-01-01T12:00:00"
+     * @return the commit data stream that can create commits.
+     * @see #of(java.lang.String) 
+     */
+    protected static Stream<JGitCommitData> of(String ...in) {
+        return Arrays.asList(in).stream().map(s -> of(s));
     }
 }

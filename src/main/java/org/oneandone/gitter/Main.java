@@ -46,7 +46,7 @@ public class Main {
         this.perProjectResults = new HashMap<>();
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String ...args) throws IOException {
         CliOptions cliOptions = CliOptions.create(args);
         if (cliOptions == null) {
             return;
