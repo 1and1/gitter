@@ -60,6 +60,7 @@ public abstract class IntervalMap<V> {
     }
     
     /** Gets the interval map data from the given CliOptions object.
+     * @param setup the initial setup for filtering.
      * @see #IntervalMap(org.oneandone.gitter.TimeInterval, java.time.LocalDate, java.time.LocalDate) 
      */
     public IntervalMap(ReportSetup setup) {
@@ -94,16 +95,20 @@ public abstract class IntervalMap<V> {
     }
     
     /** Empty data, for example an empty array.
+     * @return the empty-data element, for example 0 for an empty number or "" for an empty string.
      */
     protected abstract V getNullEntry();
     
     /** Process one commit entry and update the internal {@link #map data}.
+     * @param rc the Git commit info
+     * @param truncStart the truncated start date. For example 2016-04-01 if truncating to months.
      */
     public abstract void receive(Commit rc, LocalDate truncStart);
 
     /** Convert one map value to a String. Can be overridden to customize the
      * output.
      * @param entry a map value to format.
+     * @return String representation of a table entry.
      */
     public String toString(V entry) {
         return entry.toString();
