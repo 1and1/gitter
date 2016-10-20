@@ -17,12 +17,12 @@ package org.oneandone.gitter;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import org.oneandone.gitter.stats.CommitsPerInterval;
-import org.oneandone.gitter.stats.AuthorsCommitsPerInterval;
-import org.oneandone.gitter.stats.AuthorsPerInterval;
-import org.oneandone.gitter.stats.DayTimesPerInterval;
-import org.oneandone.gitter.stats.IntervalMap;
-import org.oneandone.gitter.stats.MessagePatternPerInterval;
+import org.oneandone.gitter.report.CommitsPerInterval;
+import org.oneandone.gitter.report.AuthorsCommitsPerInterval;
+import org.oneandone.gitter.report.AuthorsPerInterval;
+import org.oneandone.gitter.report.DayTimesPerInterval;
+import org.oneandone.gitter.report.IntervalMap;
+import org.oneandone.gitter.report.MessagePatternPerInterval;
 
 /**
  * Enum of different statistics that are possible.

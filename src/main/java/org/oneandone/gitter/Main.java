@@ -26,7 +26,7 @@ import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
 import org.oneandone.gitter.gitio.GitDirectory;
 import org.oneandone.gitter.out.CSVConsumer;
-import org.oneandone.gitter.stats.IntervalMap;
+import org.oneandone.gitter.report.IntervalMap;
 
 /**
  * Main class for starting the statistic evaluation.
