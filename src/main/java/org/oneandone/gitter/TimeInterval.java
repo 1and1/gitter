@@ -16,6 +16,7 @@
 package org.oneandone.gitter;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.function.Function;
 
 /**
@@ -23,9 +24,9 @@ import java.util.function.Function;
  * @author Stephan Fuhrmann
  */
 public enum TimeInterval {
-    YEARS(ld -> ld.minusDays(ld.getDayOfYear()-1), ld -> ld.plusYears(1)),
-    MONTHS(ld -> ld.minusDays(ld.getDayOfMonth()-1), ld -> ld.plusMonths(1)),
-    DAYS(ld -> ld, ld -> ld.plusDays(1));
+    YEARS(ld -> ld.minusDays(ld.getDayOfYear()-1), ld -> ld.plusYears(1), "yyyy"),
+    MONTHS(ld -> ld.minusDays(ld.getDayOfMonth()-1), ld -> ld.plusMonths(1), "yyyy'-'MM"),
+    DAYS(ld -> ld, ld -> ld.plusDays(1), "yyyy'-'MM'-'dd");
     
     /** Function to truncate a local date to the given time interval.
      * Example: For years this would map 2015-05-20 to 2015-01-01.
@@ -37,9 +38,19 @@ public enum TimeInterval {
      */
     private final Function<LocalDate,LocalDate> incrementFunction;
     
-    private TimeInterval(Function<LocalDate,LocalDate> trunc, Function<LocalDate,LocalDate> inc) {
+    /** The date time formatter for {@link  #formatTruncated(java.time.LocalDate)}.
+     */
+    private final DateTimeFormatter dateTimeFormatter;
+    
+    private TimeInterval(Function<LocalDate,LocalDate> trunc, Function<LocalDate,LocalDate> inc, String dateTimeFormatterPattern) {
         truncateFunction = trunc;
         incrementFunction = inc;
+        dateTimeFormatter = DateTimeFormatter.ofPattern(dateTimeFormatterPattern);
+    }
+    
+    /** Formats the relevant part of the input date for display purposes. */
+    public String formatTruncated(LocalDate in) {
+        return dateTimeFormatter.format(in);
     }
     
     /** Truncate a local date to the given time interval.

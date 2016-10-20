@@ -48,6 +48,14 @@ public class TimeIntervalTest {
     }
     
     @Test
+    public void dayFormat() {
+        LocalDate in = LocalDate.of(2016, 12, 31);
+        String actual = TimeInterval.DAYS.formatTruncated(in);
+        String expect = "2016-12-31";
+        assertEquals(expect, actual);
+    }
+    
+    @Test
     public void monthTruncateSame() {
         LocalDate in = LocalDate.of(2016, 01, 1);
         LocalDate actual = TimeInterval.MONTHS.truncate(in);
@@ -87,6 +95,14 @@ public class TimeIntervalTest {
     }
     
     @Test
+    public void monthFormat() {
+        LocalDate in = LocalDate.of(2016, 12, 31);
+        String actual = TimeInterval.MONTHS.formatTruncated(in);
+        String expect = "2016-12";
+        assertEquals(expect, actual);
+    }
+    
+    @Test
     public void yearTruncateSame() {
         LocalDate in = LocalDate.of(2016, 1, 1);
         LocalDate actual = TimeInterval.YEARS.truncate(in);
@@ -122,6 +138,14 @@ public class TimeIntervalTest {
         LocalDate in = LocalDate.of(2016, 12, 31);
         LocalDate actual = TimeInterval.YEARS.increment(in);
         LocalDate expect = LocalDate.of(2017, 12, 31);
+        assertEquals(expect, actual);
+    }
+    
+    @Test
+    public void yearFormat() {
+        LocalDate in = LocalDate.of(2016, 12, 31);
+        String actual = TimeInterval.YEARS.formatTruncated(in);
+        String expect = "2016";
         assertEquals(expect, actual);
     }
 }

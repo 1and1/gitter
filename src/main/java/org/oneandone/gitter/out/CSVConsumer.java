@@ -41,7 +41,7 @@ public class CSVConsumer {
         this.p = Objects.requireNonNull(p);
     }
 
-    public void consume(Map<String, Map<LocalDate, ?>> perProjectResults, Function<Object, String> toStringFunction) throws IOException {
+    public void consume(Map<String, Map<LocalDate, ?>> perProjectResults, Function<LocalDate, String> dateFormatter, Function<Object, String> toStringFunction) throws IOException {
         List<String> projects = perProjectResults.keySet().stream().sorted().collect(Collectors.toList());
         List<String> headers = new ArrayList<>(projects);
         headers.add(0, "Date");
@@ -52,7 +52,7 @@ public class CSVConsumer {
 
         sortedDates.stream().forEachOrdered(localDate -> {
             List<String> values = new ArrayList<>();
-            values.add(localDate.toString());
+            values.add(dateFormatter.apply(localDate));
             projects.forEach(project -> {
                 Object obj = perProjectResults.get(project).get(localDate);
                 Objects.requireNonNull(obj, () -> "Object at time "+localDate+" for project "+project+" is null");

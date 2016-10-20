@@ -51,7 +51,9 @@ public class Main {
         if (cliOptions.getOutput() != null) {
             out = new PrintStream(Files.newOutputStream(cliOptions.getOutput()));
         }
-        new CSVConsumer(out).consume(perProjectResults, (o) -> cliOptions.getFlavor().getInstance(cliOptions).toString(o));
+        new CSVConsumer(out).consume(perProjectResults, 
+                (LocalDate d) -> cliOptions.getTimeInterval().formatTruncated(d),
+                (o) -> cliOptions.getFlavor().getInstance(cliOptions).toString(o));
         out.close();
     }
 
