@@ -46,7 +46,7 @@ public class AuthorsPerInterval extends Integration {
             "--from", "2016-01-01",
             "--to", "2016-04-30",
             "--interval", "MONTHS",
-            "--flavor", "AUTHORS_PER_INTERVAL",
+            "--report", "AUTHORS_PER_INTERVAL",
             "--output", tmpOutput.toAbsolutePath().toString(),
             tmpRepo.toAbsolutePath().toString()
         );

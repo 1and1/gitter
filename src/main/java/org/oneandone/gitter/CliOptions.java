@@ -48,9 +48,9 @@ class CliOptions {
     @Getter @Setter
     private LocalDate to;
     
-    @Option(name = "-s", aliases = {"--flavor"}, metaVar = "FLAVOR", usage = "The flavor of statistics.")
+    @Option(name = "-r", aliases = {"--report"}, metaVar = "REPORT", usage = "The type of report to calculate.")
     @Getter @Setter
-    private StatFlavor flavor = StatFlavor.COMMITS_PER_INTERVAL;
+    private ReportFlavor flavor = ReportFlavor.COMMITS_PER_INTERVAL;
     
     @Option(name = "-o", aliases = {"--output"}, metaVar = "FILE", usage = "The output file.")
     @Getter @Setter

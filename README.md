@@ -15,7 +15,7 @@ The command line options are listed here:
      -h (--help)                            : Show this help message.
      -o (--output) FILE                     : The output file.
      -p (--pattern) REGEX                   : Short message pattern.
-     -s (--flavor) [COMMITS_PER_INTERVAL |  : The flavor of statistics.
+     -r (--report) [COMMITS_PER_INTERVAL |  : The flavor of report.
      AUTHORS_PER_INTERVAL | AUTHORS_COMMITS    
      _PER_INTERVAL | DAYTIMES_PER_INTERVAL     
      | MESSAGE_PATTERN_PER_INTERVAL]           
@@ -25,7 +25,7 @@ The command line options are listed here:
 
 ## Reports
 
-This section shows an overview of available reports.
+This section shows an overview of available reports (aka flavors in the options).
 
 ### COMMITS_PER_INTERVAL
 
