@@ -15,13 +15,14 @@ The command line options are listed here:
      -h (--help)                            : Show this help message.
      -o (--output) FILE                     : The output file.
      -p (--pattern) REGEX                   : Short message pattern.
-     -r (--report) [COMMITS_PER_INTERVAL |  : The flavor of report.
+     -r (--report) [COMMITS_PER_INTERVAL |  : The type of report to calculate.
      AUTHORS_PER_INTERVAL | AUTHORS_COMMITS    
      _PER_INTERVAL | DAYTIMES_PER_INTERVAL     
      | MESSAGE_PATTERN_PER_INTERVAL]           
      -t (--to) DATE                         : To timestamp to use for filtering,
                                               for example 2015-12-31.
 
+The *from* and *to* options and *DIR* arguments are always required.
 
 ## Reports
 
