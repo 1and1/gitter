@@ -16,6 +16,7 @@
 package org.oneandone.gitter.gitio;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,6 +26,8 @@ import lombok.Setter;
  */
 public class Commit {
     @Getter @Setter
+    private String id;
+    @Getter @Setter
     private String authorName;
     @Getter @Setter
     private String authorEmail;
@@ -32,4 +35,6 @@ public class Commit {
     private LocalDateTime when;
     @Getter @Setter
     private String shortMessage;
+    @Getter @Setter
+    private Optional<Integer> patchScriptSize;
 }

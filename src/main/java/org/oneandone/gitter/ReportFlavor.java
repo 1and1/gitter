@@ -23,6 +23,7 @@ import org.oneandone.gitter.report.AuthorsPerInterval;
 import org.oneandone.gitter.report.DayTimesPerInterval;
 import org.oneandone.gitter.report.IntervalMap;
 import org.oneandone.gitter.report.MessagePatternPerInterval;
+import org.oneandone.gitter.report.PatchScriptSizePerInterval;
 
 /**
  * Enum of different statistics that are possible.
@@ -33,7 +34,8 @@ public enum ReportFlavor {
     AUTHORS_PER_INTERVAL(AuthorsPerInterval.class),
     AUTHORS_COMMITS_PER_INTERVAL(AuthorsCommitsPerInterval.class),
     DAYTIMES_PER_INTERVAL(DayTimesPerInterval.class),
-    MESSAGE_PATTERN_PER_INTERVAL(MessagePatternPerInterval.class);
+    MESSAGE_PATTERN_PER_INTERVAL(MessagePatternPerInterval.class),
+    PATCH_SCRIPT_SIZE_PER_INTERVAL(PatchScriptSizePerInterval.class);
     
     private final Class<? extends IntervalMap> intervalMap;
 

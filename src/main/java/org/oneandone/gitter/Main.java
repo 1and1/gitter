@@ -25,6 +25,8 @@ import java.util.Map;
 import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
 import org.oneandone.gitter.gitio.GitDirectory;
+import org.oneandone.gitter.gitio.RepositoryWalker;
+import org.oneandone.gitter.gitio.RepositoryWalkerBuilder;
 import org.oneandone.gitter.out.CSVConsumer;
 import org.oneandone.gitter.report.IntervalMap;
 
@@ -57,14 +59,14 @@ public class Main {
         out.close();
     }
 
-    private void processRepository(GitDirectory directory) throws IOException {
+    private void processRepository(RepositoryWalker walker) throws IOException {
         IntervalMap receiver = cliOptions.getFlavor().getInstance(cliOptions);
         receiver.clear();
-        directory.readRepository()
+        walker.readRepository()
                 .filter(c -> cliOptions.getFrom() != null ? c.getWhen().toLocalDate().toEpochDay() >= cliOptions.getFrom().toEpochDay() : true)
                 .filter(c -> cliOptions.getTo() != null ? c.getWhen().toLocalDate().toEpochDay() <= cliOptions.getTo().toEpochDay() : true)
                 .forEach(c -> receiver.receive(c, cliOptions.getTimeInterval().truncate(c.getWhen().toLocalDate())));
-        perProjectResults.put(directory.getName(), receiver.copy());
+        perProjectResults.put(walker.getName(), receiver.copy());
     }
     
     public static void main(String ...args) throws IOException {
@@ -75,9 +77,12 @@ public class Main {
         Main main = new Main(cliOptions);
 
         for (Path dir : cliOptions.getFiles()) {
-            try (GitDirectory directory = new GitDirectory(dir)) {
-                main.processRepository(directory);
-            }
+            RepositoryWalkerBuilder builder = new RepositoryWalkerBuilder();
+            RepositoryWalker directory = builder
+                    .setGitDirectory(dir)
+                    .setPatchScriptSize(true)
+                    .setReportSetup(cliOptions.getReportSetup()).build();
+            main.processRepository(directory);
         }
         
         main.output();

@@ -18,7 +18,8 @@ The command line options are listed here:
      -r (--report) [COMMITS_PER_INTERVAL |  : The type of report to calculate.
      AUTHORS_PER_INTERVAL | AUTHORS_COMMITS    
      _PER_INTERVAL | DAYTIMES_PER_INTERVAL     
-     | MESSAGE_PATTERN_PER_INTERVAL]           
+     | MESSAGE_PATTERN_PER_INTERVAL |          
+     PATCH_SCRIPT_SIZE_PER_INTERVAL]           
      -t (--to) DATE                         : To timestamp to use for filtering,
                                               for example 2015-12-31.
 
@@ -50,6 +51,11 @@ At which times do the commits happen every day?
 Matches a regular expression against each commit message and shows the 
 resulting matches per time interval. This report is useful for extracting
 ticket numbers from commit messages and displaying them per project.
+
+### PATCH_SCRIPT_SIZE_PER_INTERVAL
+
+The patch script sizes in bytes per interval.
+Note that the overall first commit is not counted correctly at the moment.
 
 ## License
 
