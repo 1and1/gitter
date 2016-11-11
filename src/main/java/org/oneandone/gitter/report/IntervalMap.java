@@ -26,7 +26,7 @@ import org.oneandone.gitter.ReportSetup;
  * @param <V> the values that are managed by the map. 
  */
 @Slf4j
-public abstract class IntervalMap<V> extends CommitReceiverMap<LocalDate, V> {
+abstract class IntervalMap<V> extends CommitReceiverMap<LocalDate, V> {
     
     /** Gets the interval map data from the given CliOptions object.
      * @param setup the initial setup for filtering.

@@ -25,7 +25,7 @@ import org.oneandone.gitter.gitio.Commit;
  * @author Stephan Fuhrmann
  */
 @Slf4j
-public class CommitsPerInterval extends IntervalMap<Long> {
+class CommitsPerInterval extends IntervalMap<Long> {
 
     public CommitsPerInterval(ReportSetup setup) {
         super(setup);

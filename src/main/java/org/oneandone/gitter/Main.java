@@ -15,6 +15,7 @@
 */
 package org.oneandone.gitter;
 
+import org.oneandone.gitter.report.ReportFlavor;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.file.Files;
@@ -51,7 +52,7 @@ public class Main {
         if (cliOptions.getOutput() != null) {
             out = new PrintStream(Files.newOutputStream(cliOptions.getOutput()));
         }
-        CommitReceiver<Object,Object> template = cliOptions.getFlavor().getInstance(cliOptions);
+        CommitReceiver<Object,Object> template = cliOptions.getFlavor().newInstance(cliOptions.getReportSetup());
         new CSVConsumer(out).consume(perProjectResults, 
                 (o) -> template.keyToString(o),
                 (o) -> template.valueToString(o),
@@ -60,7 +61,7 @@ public class Main {
     }
 
     private void processRepository(RepositoryWalker walker) throws IOException {
-        CommitReceiver receiver = cliOptions.getFlavor().getInstance(cliOptions);
+        CommitReceiver receiver = cliOptions.getFlavor().newInstance(cliOptions.getReportSetup());
         receiver.clear();
         walker.readRepository()
                 .filter(c -> cliOptions.getFrom() != null ? c.getWhen().toLocalDate().toEpochDay() >= cliOptions.getFrom().toEpochDay() : true)

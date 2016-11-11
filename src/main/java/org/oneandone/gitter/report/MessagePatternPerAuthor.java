@@ -31,7 +31,7 @@ import org.oneandone.gitter.gitio.Commit;
  * @author Stephan Fuhrmann
  */
 @Slf4j
-public class MessagePatternPerAuthor extends CommitReceiverMap<String, Set<String>> {
+class MessagePatternPerAuthor extends CommitReceiverMap<String, Set<String>> {
 
     /** The regex to match the shortmsg with. */
     private final Pattern regex;

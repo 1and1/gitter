@@ -30,7 +30,7 @@ import org.oneandone.gitter.gitio.Commit;
  * @author Stephan Fuhrmann
  */
 @Slf4j
-public class DayTimesPerInterval extends IntervalMap<DayTimesPerInterval.MinMax> {
+class DayTimesPerInterval extends IntervalMap<DayTimesPerInterval.MinMax> {
 
     @EqualsAndHashCode
     public static class MinMax {

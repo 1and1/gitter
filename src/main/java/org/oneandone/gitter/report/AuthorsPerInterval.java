@@ -28,7 +28,7 @@ import org.oneandone.gitter.gitio.Commit;
  * @author Stephan Fuhrmann
  */
 @Slf4j
-public class AuthorsPerInterval extends IntervalMap<Set<String>> {
+class AuthorsPerInterval extends IntervalMap<Set<String>> {
 
     public AuthorsPerInterval(ReportSetup setup) {
         super(setup);

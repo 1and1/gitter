@@ -32,7 +32,7 @@ import org.oneandone.gitter.gitio.Commit;
  * @param <V> the values that are managed by the map. 
  */
 @Slf4j
-public abstract class CommitReceiverMap<K,V> implements CommitReceiver<K, V> {
+abstract class CommitReceiverMap<K,V> implements CommitReceiver<K, V> {
     
     @Getter(AccessLevel.PROTECTED)
     private final Map<K, V> map;

@@ -31,7 +31,7 @@ import org.oneandone.gitter.gitio.Commit;
  * @author Stephan Fuhrmann
  */
 @Slf4j
-public class MessagePatternPerInterval extends IntervalMap<Set<String>> {
+class MessagePatternPerInterval extends IntervalMap<Set<String>> {
 
     /** The regex to match the shortmsg with. */
     private final Pattern regex;

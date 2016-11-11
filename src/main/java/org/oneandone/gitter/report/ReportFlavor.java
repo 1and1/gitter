@@ -13,20 +13,11 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.oneandone.gitter;
+package org.oneandone.gitter.report;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import org.oneandone.gitter.report.CommitsPerInterval;
-import org.oneandone.gitter.report.AuthorsCommitsPerInterval;
-import org.oneandone.gitter.report.AuthorsPerInterval;
-import org.oneandone.gitter.report.CommitReceiver;
-import org.oneandone.gitter.report.CommitsPerAuthor;
-import org.oneandone.gitter.report.DayTimesPerInterval;
-import org.oneandone.gitter.report.DebugCommitReceiverFascade;
-import org.oneandone.gitter.report.MessagePatternPerAuthor;
-import org.oneandone.gitter.report.MessagePatternPerInterval;
-import org.oneandone.gitter.report.PatchScriptSizePerInterval;
+import org.oneandone.gitter.ReportSetup;
 
 /**
  * Enum of different statistics that are possible.
@@ -48,10 +39,10 @@ public enum ReportFlavor {
         this.commitReceiverMap = intervalMap;
     }
 
-    CommitReceiver getInstance(CliOptions cliOptions) {
+    public CommitReceiver newInstance(ReportSetup reportSetup) {
         try {
             Constructor<CommitReceiver> ctor = (Constructor<CommitReceiver>) commitReceiverMap.getConstructor(ReportSetup.class); 
-            CommitReceiver result = ctor.newInstance(cliOptions.getReportSetup());
+            CommitReceiver result = ctor.newInstance(reportSetup);
             return new DebugCommitReceiverFascade(result);
         } catch (InvocationTargetException | IllegalArgumentException | IllegalAccessException | InstantiationException | SecurityException | NoSuchMethodException ex) {
             throw new RuntimeException(ex); // no exception pollution

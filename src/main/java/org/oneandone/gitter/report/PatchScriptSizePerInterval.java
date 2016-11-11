@@ -25,7 +25,7 @@ import org.oneandone.gitter.gitio.Commit;
  * @author Stephan Fuhrmann
  */
 @Slf4j
-public class PatchScriptSizePerInterval extends IntervalMap<Long> {
+class PatchScriptSizePerInterval extends IntervalMap<Long> {
 
     public PatchScriptSizePerInterval(ReportSetup setup) {
         super(setup);

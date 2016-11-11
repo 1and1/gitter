@@ -25,7 +25,7 @@ import org.oneandone.gitter.gitio.Commit;
  * @author Stephan Fuhrmann
  */
 @Slf4j
-public class CommitsPerAuthor extends CommitReceiverMap<String, Long> {
+class CommitsPerAuthor extends CommitReceiverMap<String, Long> {
 
     public CommitsPerAuthor(ReportSetup setup) {
         super(setup);
