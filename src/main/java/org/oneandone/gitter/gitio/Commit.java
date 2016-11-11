@@ -19,11 +19,13 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * A Git commit POJO.
  * @author Stephan Fuhrmann
  */
+@ToString
 public class Commit {
     @Getter @Setter
     private String id;

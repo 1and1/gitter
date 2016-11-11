@@ -26,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.oneandone.gitter.gitio.RepositoryWalker;
 import org.oneandone.gitter.gitio.RepositoryWalkerBuilder;
 import org.oneandone.gitter.out.CSVConsumer;
-import org.oneandone.gitter.report.CommitReceiverMap;
+import org.oneandone.gitter.report.CommitReceiver;
 
 /**
  * Main class for starting the statistic evaluation.
@@ -51,7 +51,7 @@ public class Main {
         if (cliOptions.getOutput() != null) {
             out = new PrintStream(Files.newOutputStream(cliOptions.getOutput()));
         }
-        CommitReceiverMap<Object,Object> template = cliOptions.getFlavor().getInstance(cliOptions);
+        CommitReceiver<Object,Object> template = cliOptions.getFlavor().getInstance(cliOptions);
         new CSVConsumer(out).consume(perProjectResults, 
                 (o) -> template.keyToString(o),
                 (o) -> template.valueToString(o),
@@ -60,7 +60,7 @@ public class Main {
     }
 
     private void processRepository(RepositoryWalker walker) throws IOException {
-        CommitReceiverMap receiver = cliOptions.getFlavor().getInstance(cliOptions);
+        CommitReceiver receiver = cliOptions.getFlavor().getInstance(cliOptions);
         receiver.clear();
         walker.readRepository()
                 .filter(c -> cliOptions.getFrom() != null ? c.getWhen().toLocalDate().toEpochDay() >= cliOptions.getFrom().toEpochDay() : true)

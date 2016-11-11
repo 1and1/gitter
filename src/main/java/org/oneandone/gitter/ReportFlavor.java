@@ -20,9 +20,10 @@ import java.lang.reflect.InvocationTargetException;
 import org.oneandone.gitter.report.CommitsPerInterval;
 import org.oneandone.gitter.report.AuthorsCommitsPerInterval;
 import org.oneandone.gitter.report.AuthorsPerInterval;
-import org.oneandone.gitter.report.CommitReceiverMap;
+import org.oneandone.gitter.report.CommitReceiver;
 import org.oneandone.gitter.report.CommitsPerAuthor;
 import org.oneandone.gitter.report.DayTimesPerInterval;
+import org.oneandone.gitter.report.DebugCommitReceiverFascade;
 import org.oneandone.gitter.report.MessagePatternPerInterval;
 import org.oneandone.gitter.report.PatchScriptSizePerInterval;
 
@@ -39,17 +40,17 @@ public enum ReportFlavor {
     MESSAGE_PATTERN_PER_INTERVAL(MessagePatternPerInterval.class),
     PATCH_SCRIPT_SIZE_PER_INTERVAL(PatchScriptSizePerInterval.class);
     
-    private final Class<? extends CommitReceiverMap> commitReceiverMap;
+    private final Class<? extends CommitReceiver> commitReceiverMap;
 
-    private ReportFlavor(Class<? extends CommitReceiverMap> intervalMap) {
+    private ReportFlavor(Class<? extends CommitReceiver> intervalMap) {
         this.commitReceiverMap = intervalMap;
     }
 
-    CommitReceiverMap getInstance(CliOptions cliOptions) {
+    CommitReceiver getInstance(CliOptions cliOptions) {
         try {
-            Constructor<CommitReceiverMap> ctor = (Constructor<CommitReceiverMap>) commitReceiverMap.getConstructor(ReportSetup.class); 
-            CommitReceiverMap result = ctor.newInstance(cliOptions.getReportSetup());
-            return result;
+            Constructor<CommitReceiver> ctor = (Constructor<CommitReceiver>) commitReceiverMap.getConstructor(ReportSetup.class); 
+            CommitReceiver result = ctor.newInstance(cliOptions.getReportSetup());
+            return new DebugCommitReceiverFascade(result);
         } catch (InvocationTargetException | IllegalArgumentException | IllegalAccessException | InstantiationException | SecurityException | NoSuchMethodException ex) {
             throw new RuntimeException(ex); // no exception pollution
         }
