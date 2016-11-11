@@ -24,6 +24,7 @@ import org.oneandone.gitter.report.CommitReceiver;
 import org.oneandone.gitter.report.CommitsPerAuthor;
 import org.oneandone.gitter.report.DayTimesPerInterval;
 import org.oneandone.gitter.report.DebugCommitReceiverFascade;
+import org.oneandone.gitter.report.MessagePatternPerAuthor;
 import org.oneandone.gitter.report.MessagePatternPerInterval;
 import org.oneandone.gitter.report.PatchScriptSizePerInterval;
 
@@ -37,6 +38,7 @@ public enum ReportFlavor {
     AUTHORS_PER_INTERVAL(AuthorsPerInterval.class),
     AUTHORS_COMMITS_PER_INTERVAL(AuthorsCommitsPerInterval.class),
     DAYTIMES_PER_INTERVAL(DayTimesPerInterval.class),
+    MESSAGE_PATTERN_PER_AUTHOR(MessagePatternPerAuthor.class),
     MESSAGE_PATTERN_PER_INTERVAL(MessagePatternPerInterval.class),
     PATCH_SCRIPT_SIZE_PER_INTERVAL(PatchScriptSizePerInterval.class);
     
