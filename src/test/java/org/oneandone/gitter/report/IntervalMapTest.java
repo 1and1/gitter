@@ -56,9 +56,9 @@ public class IntervalMapTest {
     
     @Test
     public void testReportSetupFields() {
-        assertEquals(reportSetup.getFrom(), instance.getFrom());
-        assertEquals(reportSetup.getTo(), instance.getTo());
-        assertEquals(reportSetup.getInterval(), instance.getTimeInterval());
+        assertEquals(reportSetup.getFrom(), instance.getReportSetup().getFrom());
+        assertEquals(reportSetup.getTo(), instance.getReportSetup().getTo());
+        assertEquals(reportSetup.getInterval(), instance.getReportSetup().getInterval());
     }
     
     @Test

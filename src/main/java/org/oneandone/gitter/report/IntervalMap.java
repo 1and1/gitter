@@ -48,16 +48,17 @@ public abstract class IntervalMap<V> extends CommitReceiverMap<LocalDate, V> {
     
     /** Initialize time interval slots. */
     private void initEntries() {
-        LocalDate cur = getTimeInterval().truncate(getFrom());
-        LocalDate realTo = getTimeInterval().truncate(getTo());
+        ReportSetup reportSetup = getReportSetup();
+        LocalDate cur = reportSetup.getInterval().truncate(reportSetup.getFrom());
+        LocalDate realTo = reportSetup.getInterval().truncate(reportSetup.getTo());
         while (cur.isBefore(realTo) || cur.isEqual(realTo)) {
             getMap().put(cur, getNullEntry());
-            cur = getTimeInterval().increment(cur);
+            cur = reportSetup.getInterval().increment(cur);
         }
     }
 
     @Override
     public String keyToString(LocalDate entry) {
-        return getTimeInterval().formatTruncated(entry);
+        return getReportSetup().getInterval().formatTruncated(entry);
     }
 }
