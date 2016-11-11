@@ -16,7 +16,6 @@
 package org.oneandone.gitter.report;
 
 import java.time.LocalDate;
-import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
