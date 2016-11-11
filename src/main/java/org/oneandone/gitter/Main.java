@@ -78,9 +78,11 @@ public class Main {
 
         for (Path dir : cliOptions.getFiles()) {
             RepositoryWalkerBuilder builder = new RepositoryWalkerBuilder();
+            
+            // TODO: this is ugly and should be done better: cliOptions.getFlavor() == ReportFlavor.PATCH_SCRIPT_SIZE_PER_INTERVAL
             RepositoryWalker directory = builder
                     .setGitDirectory(dir)
-                    .setPatchScriptSize(true)
+                    .setPatchScriptSize(cliOptions.getFlavor() == ReportFlavor.PATCH_SCRIPT_SIZE_PER_INTERVAL)
                     .setReportSetup(cliOptions.getReportSetup()).build();
             main.processRepository(directory);
         }
