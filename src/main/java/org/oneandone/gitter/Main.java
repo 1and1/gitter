@@ -24,7 +24,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
-import org.oneandone.gitter.gitio.GitDirectory;
 import org.oneandone.gitter.gitio.RepositoryWalker;
 import org.oneandone.gitter.gitio.RepositoryWalkerBuilder;
 import org.oneandone.gitter.out.CSVConsumer;
