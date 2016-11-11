@@ -27,6 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.oneandone.gitter.gitio.RepositoryWalker;
 import org.oneandone.gitter.gitio.RepositoryWalkerBuilder;
 import org.oneandone.gitter.out.CSVConsumer;
+import org.oneandone.gitter.report.CommitReceiverMap;
 import org.oneandone.gitter.report.IntervalMap;
 
 /**
@@ -59,7 +60,7 @@ public class Main {
     }
 
     private void processRepository(RepositoryWalker walker) throws IOException {
-        IntervalMap receiver = cliOptions.getFlavor().getInstance(cliOptions);
+        CommitReceiverMap receiver = cliOptions.getFlavor().getInstance(cliOptions);
         receiver.clear();
         walker.readRepository()
                 .filter(c -> cliOptions.getFrom() != null ? c.getWhen().toLocalDate().toEpochDay() >= cliOptions.getFrom().toEpochDay() : true)

@@ -16,15 +16,8 @@
 package org.oneandone.gitter.report;
 
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import lombok.AccessLevel;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import org.oneandone.gitter.TimeInterval;
 import org.oneandone.gitter.ReportSetup;
-import org.oneandone.gitter.gitio.Commit;
 
 /**
  * Receives commit messages and does some fancy statistics mapping
@@ -33,85 +26,33 @@ import org.oneandone.gitter.gitio.Commit;
  * @param <V> the values that are managed by the map. 
  */
 @Slf4j
-public abstract class IntervalMap<V> {
-    
-    @Getter(AccessLevel.PROTECTED)
-    private final Map<LocalDate, V> map;
-
-    @Getter
-    private final TimeInterval timeInterval;
-    
-    @Getter
-    private final LocalDate from;
-    
-    @Getter
-    private final LocalDate to;
-    
-    /** Builds an interval map. 
-     * @param interval the interval to truncate to.
-     * @param from start date (inclusive).
-     * @param to end date (inclusive).
-     */
-    private IntervalMap(TimeInterval interval, LocalDate from, LocalDate to) {
-        map = new HashMap<>();
-        this.timeInterval = Objects.requireNonNull(interval);
-        this.from = Objects.requireNonNull(from);
-        this.to = Objects.requireNonNull(to);
-        clear();
-    }
+public abstract class IntervalMap<V> extends CommitReceiverMap<LocalDate, V> {
     
     /** Gets the interval map data from the given CliOptions object.
      * @param setup the initial setup for filtering.
      * @see #IntervalMap(org.oneandone.gitter.TimeInterval, java.time.LocalDate, java.time.LocalDate) 
      */
     public IntervalMap(ReportSetup setup) {
-        this(setup.getInterval(), setup.getFrom(), setup.getTo());
+        super(setup);
+        clear();
     }
-
-    
-    /** Creates a copy of the map data for further processing.
-     * @return a copy that belongs to the caller.
-     */
-    public final Map<LocalDate, V> copy() {
-        Map<LocalDate, V> result = new HashMap<>(getMap());
-        return result;
-    }
-    
+        
     /** Resets the map and initializes the map entries with empty
      * data.
      */
+    @Override
     public final void clear() {
-        map.clear();
+        super.clear();
         initEntries();
     }
     
     /** Initialize time interval slots. */
     private void initEntries() {
-        LocalDate cur = timeInterval.truncate(from);
-        LocalDate realTo = timeInterval.truncate(to);
+        LocalDate cur = getTimeInterval().truncate(getFrom());
+        LocalDate realTo = getTimeInterval().truncate(getTo());
         while (cur.isBefore(realTo) || cur.isEqual(realTo)) {
-            map.put(cur, getNullEntry());
-            cur = timeInterval.increment(cur);
+            getMap().put(cur, getNullEntry());
+            cur = getTimeInterval().increment(cur);
         }
-    }
-    
-    /** Empty data, for example an empty array.
-     * @return the empty-data element, for example 0 for an empty number or "" for an empty string.
-     */
-    protected abstract V getNullEntry();
-    
-    /** Process one commit entry and update the internal {@link #map data}.
-     * @param rc the Git commit info
-     * @param truncStart the truncated start date. For example 2016-04-01 if truncating to months.
-     */
-    public abstract void receive(Commit rc, LocalDate truncStart);
-
-    /** Convert one map value to a String. Can be overridden to customize the
-     * output.
-     * @param entry a map value to format.
-     * @return String representation of a table entry.
-     */
-    public String toString(V entry) {
-        return entry.toString();
     }
 }
