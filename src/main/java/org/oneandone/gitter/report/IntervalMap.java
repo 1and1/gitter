@@ -19,6 +19,7 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.oneandone.gitter.TimeInterval;
@@ -34,7 +35,7 @@ import org.oneandone.gitter.gitio.Commit;
 @Slf4j
 public abstract class IntervalMap<V> {
     
-    @Getter
+    @Getter(AccessLevel.PROTECTED)
     private final Map<LocalDate, V> map;
 
     @Getter
