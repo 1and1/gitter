@@ -21,6 +21,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.regex.Pattern;
 import lombok.Getter;
 import lombok.Setter;
@@ -99,6 +100,6 @@ class CliOptions {
     }
     
     public ReportSetup getReportSetup() {
-        return new ReportSetup(timeInterval, from, to, shortMessageRegex);
+        return new ReportSetup(timeInterval, from, to, Optional.ofNullable(shortMessageRegex));
     }
 }

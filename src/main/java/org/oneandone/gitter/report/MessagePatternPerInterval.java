@@ -39,7 +39,7 @@ public class MessagePatternPerInterval extends IntervalMap<Set<String>> {
     
     public MessagePatternPerInterval(ReportSetup setup) {
         super(setup);
-        regex = Objects.requireNonNull(setup.getShortMessageRegex(), "Short message regex parameter required");
+        regex = setup.getShortMessageRegex().orElseThrow(() -> new NullPointerException("Need short message regex parameter"));
     }
     
     @Override
