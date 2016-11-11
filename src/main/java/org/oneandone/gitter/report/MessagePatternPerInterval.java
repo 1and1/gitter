@@ -56,14 +56,14 @@ public class MessagePatternPerInterval extends IntervalMap<Set<String>> {
     }
 
     @Override
-    public String toString(Set<String> in) {
+    public String valueToString(Set<String> in) {
         return in.stream().
             sorted(String.CASE_INSENSITIVE_ORDER).
             collect(Collectors.joining(","));
     }
 
     @Override
-    protected Set<String> getNullEntry() {
+    public Set<String> getNullEntry() {
         return new TreeSet<>();
     }
 }

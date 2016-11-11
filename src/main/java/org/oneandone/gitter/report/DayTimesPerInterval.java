@@ -76,7 +76,7 @@ public class DayTimesPerInterval extends IntervalMap<DayTimesPerInterval.MinMax>
     }
 
     @Override
-    protected MinMax getNullEntry() {
+    public MinMax getNullEntry() {
         return new MinMax();
     }
 }

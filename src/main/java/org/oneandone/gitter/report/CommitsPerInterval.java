@@ -38,7 +38,7 @@ public class CommitsPerInterval extends IntervalMap<Long> {
     }
 
     @Override
-    protected Long getNullEntry() {
+    public Long getNullEntry() {
         return 0L;
     }
 }

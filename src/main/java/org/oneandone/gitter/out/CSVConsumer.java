@@ -25,6 +25,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
@@ -41,22 +42,32 @@ public class CSVConsumer {
         this.p = Objects.requireNonNull(p);
     }
 
-    public void consume(Map<String, Map<LocalDate, ?>> perProjectResults, Function<LocalDate, String> dateFormatter, Function<Object, String> toStringFunction) throws IOException {
+    public void consume(Map<String, Map<?, ?>> perProjectResults, 
+            Function<Object, String> keyFormatter, 
+            Function<Object, String> valueFormatter,
+            Supplier<Object> nullValue) throws IOException {
         List<String> projects = perProjectResults.keySet().stream().sorted().collect(Collectors.toList());
         List<String> headers = new ArrayList<>(projects);
-        headers.add(0, "Date");
+        headers.add(0, "Key");
         CSVPrinter printer = CSVFormat.EXCEL.withHeader(headers.toArray(new String[0])).print(p);
 
-        Set<LocalDate> dates = perProjectResults.values().stream().findFirst().get().keySet();
-        TreeSet<LocalDate> sortedDates = new TreeSet<>(dates);
+        Set<Object> keys = perProjectResults
+                .values()
+                .stream()
+                .flatMap(m -> m.keySet().stream())
+                .collect(Collectors.toSet());
+        TreeSet<Object> sortedKeys = new TreeSet<>(keys);
 
-        sortedDates.stream().forEachOrdered(localDate -> {
+        sortedKeys.stream().forEachOrdered(key -> {
             List<String> values = new ArrayList<>();
-            values.add(dateFormatter.apply(localDate));
+            values.add(keyFormatter.apply(key));
             projects.forEach(project -> {
-                Object obj = perProjectResults.get(project).get(localDate);
-                Objects.requireNonNull(obj, () -> "Object at time "+localDate+" for project "+project+" is null");
-                values.add(obj != null ? toStringFunction.apply(obj) : "<null>");
+                Object obj = perProjectResults.get(project).get(key);
+                if (obj == null) {
+                    obj = nullValue.get();
+                }
+                Objects.requireNonNull(obj, () -> "Object at key "+keyFormatter.apply(key)+" for project "+project+" is null");
+                values.add(obj != null ? valueFormatter.apply(obj) : "<null>");
             });
             try {
 

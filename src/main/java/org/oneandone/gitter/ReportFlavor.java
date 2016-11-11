@@ -21,8 +21,8 @@ import org.oneandone.gitter.report.CommitsPerInterval;
 import org.oneandone.gitter.report.AuthorsCommitsPerInterval;
 import org.oneandone.gitter.report.AuthorsPerInterval;
 import org.oneandone.gitter.report.CommitReceiverMap;
+import org.oneandone.gitter.report.CommitsPerAuthor;
 import org.oneandone.gitter.report.DayTimesPerInterval;
-import org.oneandone.gitter.report.IntervalMap;
 import org.oneandone.gitter.report.MessagePatternPerInterval;
 import org.oneandone.gitter.report.PatchScriptSizePerInterval;
 
@@ -31,6 +31,7 @@ import org.oneandone.gitter.report.PatchScriptSizePerInterval;
  * @author Stephan Fuhrmann
  */
 public enum ReportFlavor {
+    COMMITS_PER_AUTHOR(CommitsPerAuthor.class),
     COMMITS_PER_INTERVAL(CommitsPerInterval.class),
     AUTHORS_PER_INTERVAL(AuthorsPerInterval.class),
     AUTHORS_COMMITS_PER_INTERVAL(AuthorsCommitsPerInterval.class),
@@ -40,7 +41,7 @@ public enum ReportFlavor {
     
     private final Class<? extends CommitReceiverMap> commitReceiverMap;
 
-    private ReportFlavor(Class<? extends IntervalMap> intervalMap) {
+    private ReportFlavor(Class<? extends CommitReceiverMap> intervalMap) {
         this.commitReceiverMap = intervalMap;
     }
 

@@ -55,4 +55,9 @@ public abstract class IntervalMap<V> extends CommitReceiverMap<LocalDate, V> {
             cur = getTimeInterval().increment(cur);
         }
     }
+
+    @Override
+    public String keyToString(LocalDate entry) {
+        return getTimeInterval().formatTruncated(entry);
+    }
 }

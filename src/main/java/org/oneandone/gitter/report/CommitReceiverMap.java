@@ -87,7 +87,7 @@ public abstract class CommitReceiverMap<K,V> {
     /** Empty data, for example an empty array.
      * @return the empty-data element, for example 0 for an empty number or "" for an empty string.
      */
-    protected abstract V getNullEntry();
+    public abstract V getNullEntry();
     
     /** Process one commit entry and update the internal {@link #map data}.
      * @param rc the Git commit info
@@ -95,12 +95,21 @@ public abstract class CommitReceiverMap<K,V> {
      */
     public abstract void receive(Commit rc, LocalDate truncStart);
 
+    /** Convert one map key to a String. Can be overridden to customize the
+     * output.
+     * @param entry a map key to format.
+     * @return String representation of a table entry.
+     */
+    public String keyToString(K entry) {
+        return entry.toString();
+    }
+    
     /** Convert one map value to a String. Can be overridden to customize the
      * output.
      * @param entry a map value to format.
      * @return String representation of a table entry.
      */
-    public String toString(V entry) {
+    public String valueToString(V entry) {
         return entry.toString();
     }
 }

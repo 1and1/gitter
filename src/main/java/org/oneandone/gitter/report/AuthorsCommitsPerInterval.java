@@ -49,7 +49,7 @@ public class AuthorsCommitsPerInterval extends IntervalMap<Map<String,Integer>> 
     }
 
     @Override
-    public String toString(Map<String,Integer> in) {
+    public String valueToString(Map<String,Integer> in) {
         return in.entrySet().stream().
             sorted((l,r) -> -Integer.compare(l.getValue(), r.getValue())).
             map(e -> e.getKey()+":"+e.getValue()).
@@ -57,7 +57,7 @@ public class AuthorsCommitsPerInterval extends IntervalMap<Map<String,Integer>> 
     }
 
     @Override
-    protected Map<String,Integer> getNullEntry() {
+    public Map<String,Integer> getNullEntry() {
         return new HashMap<>();
     }
 }

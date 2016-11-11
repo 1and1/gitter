@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -28,7 +27,6 @@ import org.oneandone.gitter.gitio.RepositoryWalker;
 import org.oneandone.gitter.gitio.RepositoryWalkerBuilder;
 import org.oneandone.gitter.out.CSVConsumer;
 import org.oneandone.gitter.report.CommitReceiverMap;
-import org.oneandone.gitter.report.IntervalMap;
 
 /**
  * Main class for starting the statistic evaluation.
@@ -41,7 +39,7 @@ public class Main {
     private final CliOptions cliOptions;
     
     /** Per project map of histograms. */
-    private final Map<String, Map<LocalDate, ?>> perProjectResults;
+    private final Map<String, Map<?, ?>> perProjectResults;
     
     Main(CliOptions cliOptions) {
         this.cliOptions = Objects.requireNonNull(cliOptions);
@@ -53,9 +51,11 @@ public class Main {
         if (cliOptions.getOutput() != null) {
             out = new PrintStream(Files.newOutputStream(cliOptions.getOutput()));
         }
+        CommitReceiverMap<Object,Object> template = cliOptions.getFlavor().getInstance(cliOptions);
         new CSVConsumer(out).consume(perProjectResults, 
-                (LocalDate d) -> cliOptions.getTimeInterval().formatTruncated(d),
-                (o) -> cliOptions.getFlavor().getInstance(cliOptions).toString(o));
+                (o) -> template.keyToString(o),
+                (o) -> template.valueToString(o),
+                () -> template.getNullEntry());
         out.close();
     }
 

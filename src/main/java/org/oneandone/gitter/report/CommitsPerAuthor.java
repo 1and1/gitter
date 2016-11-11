@@ -16,40 +16,30 @@
 package org.oneandone.gitter.report;
 
 import java.time.LocalDate;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.oneandone.gitter.ReportSetup;
 import org.oneandone.gitter.gitio.Commit;
 
 /**
- * Statistics for commiters (author names) per time interval.
+ * Statistics for commit counts per author.
  * @author Stephan Fuhrmann
  */
 @Slf4j
-public class AuthorsPerInterval extends IntervalMap<Set<String>> {
+public class CommitsPerAuthor extends CommitReceiverMap<String, Long> {
 
-    public AuthorsPerInterval(ReportSetup setup) {
+    public CommitsPerAuthor(ReportSetup setup) {
         super(setup);
     }
     
     @Override
     public void receive(Commit rc, LocalDate truncStart) {
-        String author = rc.getAuthorName();
-        Set<String> authors = getMap().get(truncStart);
-        authors.add(AuthorNames.shortenName(author));
+        String author = AuthorNames.shortenName(rc.getAuthorName());
+        Long commits = getMap().getOrDefault(author, 0L);
+        getMap().put(author, commits + 1);
     }
 
     @Override
-    public String valueToString(Set<String> in) {
-        return in.stream().
-            sorted(String.CASE_INSENSITIVE_ORDER).
-            collect(Collectors.joining(","));
-    }
-
-    @Override
-    public Set<String> getNullEntry() {
-        return new TreeSet<>();
+    public Long getNullEntry() {
+        return 0L;
     }
 }

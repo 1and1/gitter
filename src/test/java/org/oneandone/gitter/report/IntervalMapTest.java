@@ -42,7 +42,7 @@ public class IntervalMapTest {
             Optional.empty());
         instance = new IntervalMap<Integer>(reportSetup) {
             @Override
-            protected Integer getNullEntry() {
+            public Integer getNullEntry() {
                 return 0;
             }
 
