@@ -42,13 +42,17 @@ class CliOptions {
     @Option(name = "-h", aliases = {"--help"}, usage = "Show this help message.", help = true)
     private boolean help;
     
-    @Option(name = "-f", aliases = {"--from"}, metaVar = "DATE", required = true, usage = "From timestamp to use for filtering, for example 2015-12-31.")
+    @Option(name = "-f", required = true, aliases = {"--from"}, metaVar = "DATE", usage = "From timestamp to use for filtering, for example 2015-12-31.")
     @Getter @Setter
     private LocalDate from;
     
-    @Option(name = "-t", aliases = {"--to"}, metaVar = "DATE", required = true, usage = "To timestamp to use for filtering, for example 2015-12-31.")
+    @Option(name = "-t", required = true, aliases = {"--to"}, metaVar = "DATE", usage = "To timestamp to use for filtering, for example 2015-12-31.")
     @Getter @Setter
     private LocalDate to;
+
+    @Option(name = "-w", aliases = {"--committer"}, metaVar = "REGEX", usage = "The committer to filter for as a regex.")
+    @Getter @Setter
+    private Pattern committer;
     
     @Option(name = "-r", aliases = {"--report"}, metaVar = "REPORT", usage = "The type of report to calculate.")
     @Getter @Setter
@@ -101,6 +105,11 @@ class CliOptions {
     }
     
     public ReportSetup getReportSetup() {
-        return new ReportSetup(timeInterval, from, to, Optional.ofNullable(shortMessageRegex));
+        return new ReportSetup(
+                timeInterval,
+                Optional.ofNullable(from),
+                Optional.ofNullable(to),
+                Optional.ofNullable(committer),
+                Optional.ofNullable(shortMessageRegex));
     }
 }

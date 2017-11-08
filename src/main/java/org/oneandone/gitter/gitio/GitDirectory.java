@@ -23,14 +23,12 @@ import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.LogCommand;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.diff.DiffEntry;
 import org.eclipse.jgit.diff.DiffFormatter;
@@ -41,7 +39,9 @@ import org.eclipse.jgit.lib.ObjectReader;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.patch.FileHeader;
 import org.eclipse.jgit.revwalk.RevCommit;
+import org.eclipse.jgit.revwalk.filter.AndRevFilter;
 import org.eclipse.jgit.revwalk.filter.CommitTimeRevFilter;
+import org.eclipse.jgit.revwalk.filter.CommitterRevFilter;
 import org.eclipse.jgit.revwalk.filter.RevFilter;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 import org.eclipse.jgit.treewalk.CanonicalTreeParser;
@@ -90,10 +90,27 @@ public class GitDirectory implements RepositoryWalker, Closeable {
 
         public MyIterator(Git git) {
             try {
-                long from = reportSetup.getFrom().atStartOfDay().toInstant(ZoneOffset.UTC).toEpochMilli();
-                long to = reportSetup.getTo().atTime(23, 59, 59).toInstant(ZoneOffset.UTC).toEpochMilli();
-                RevFilter filter = CommitTimeRevFilter.between(from, to);
-                iterator = git.log().setRevFilter(filter).call().iterator();
+                List<RevFilter> filters = new ArrayList<>();
+
+                if (reportSetup.getFrom().isPresent() && reportSetup.getTo().isPresent()) {
+                    long from = reportSetup.getFrom().get().atStartOfDay().toInstant(ZoneOffset.UTC).toEpochMilli();
+                    long to = reportSetup.getTo().get().atTime(23, 59, 59).toInstant(ZoneOffset.UTC).toEpochMilli();
+                    filters.add(CommitTimeRevFilter.between(from, to));
+                }
+
+                if (reportSetup.getCommitter().isPresent()) {
+                    filters.add(CommitterRevFilter.create(reportSetup.getCommitter().get().pattern()));
+                }
+
+                log.debug("Iterator with {} filters", filters.size());
+
+                LogCommand logCommand = git.log();
+                if (filters.size() > 1) {
+                    logCommand.setRevFilter(AndRevFilter.create(filters));
+                } else if (filters.size() == 1) {
+                    logCommand.setRevFilter(filters.get(0));
+                }
+                iterator = logCommand.call().iterator();
             } catch (GitAPIException ex) {
                 throw new RuntimeException(ex);
             }

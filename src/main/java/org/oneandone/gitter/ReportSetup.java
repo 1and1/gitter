@@ -29,16 +29,23 @@ public class ReportSetup {
     @Getter
     private final TimeInterval interval;
     @Getter
-    private final LocalDate from; 
+    private final Optional<LocalDate> from;
     @Getter
-    private final LocalDate to;
+    private final Optional<LocalDate> to;
+    @Getter
+    private final Optional<Pattern> committer;
     @Getter
     private final Optional<Pattern> shortMessageRegex;
 
-    public ReportSetup(TimeInterval interval, LocalDate from, LocalDate to, Optional<Pattern> shortMessageRegex) {
+    public ReportSetup(TimeInterval interval,
+                       Optional<LocalDate> from,
+                       Optional<LocalDate> to,
+                       Optional<Pattern> committer,
+                       Optional<Pattern> shortMessageRegex) {
         this.interval = Objects.requireNonNull(interval);
         this.from = Objects.requireNonNull(from);
         this.to = Objects.requireNonNull(to);
+        this.committer = Objects.requireNonNull(committer);
         this.shortMessageRegex = Objects.requireNonNull(shortMessageRegex);
     }
 }

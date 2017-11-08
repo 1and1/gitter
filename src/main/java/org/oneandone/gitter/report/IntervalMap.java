@@ -30,7 +30,6 @@ abstract class IntervalMap<V> extends CommitReceiverMap<LocalDate, V> {
     
     /** Gets the interval map data from the given CliOptions object.
      * @param setup the initial setup for filtering.
-     * @see #IntervalMap(org.oneandone.gitter.TimeInterval, java.time.LocalDate, java.time.LocalDate) 
      */
     public IntervalMap(ReportSetup setup) {
         super(setup);
@@ -49,8 +48,8 @@ abstract class IntervalMap<V> extends CommitReceiverMap<LocalDate, V> {
     /** Initialize time interval slots. */
     private void initEntries() {
         ReportSetup reportSetup = getReportSetup();
-        LocalDate cur = reportSetup.getInterval().truncate(reportSetup.getFrom());
-        LocalDate realTo = reportSetup.getInterval().truncate(reportSetup.getTo());
+        LocalDate cur = reportSetup.getInterval().truncate(reportSetup.getFrom().get());
+        LocalDate realTo = reportSetup.getInterval().truncate(reportSetup.getTo().get());
         while (cur.isBefore(realTo) || cur.isEqual(realTo)) {
             getMap().put(cur, getNullEntry());
             cur = reportSetup.getInterval().increment(cur);

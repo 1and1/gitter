@@ -16,6 +16,7 @@
 package org.oneandone.gitter.report;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 import org.oneandone.gitter.ReportSetup;
 import org.oneandone.gitter.gitio.Commit;
@@ -29,7 +30,7 @@ import org.oneandone.gitter.gitio.Commit;
 public interface CommitReceiver<K,V> {
 
     public ReportSetup getReportSetup();
-    
+
     /** Creates a copy of the map data for further processing.
      * @return a copy that belongs to the caller.
      */
@@ -45,7 +46,7 @@ public interface CommitReceiver<K,V> {
      */
     public V getNullEntry();
     
-    /** Process one commit entry and update the internal {@link #map data}.
+    /** Process one commit entry and update the internal data.
      * @param rc the Git commit info
      * @param truncStart the truncated start date. For example 2016-04-01 if truncating to months.
      */

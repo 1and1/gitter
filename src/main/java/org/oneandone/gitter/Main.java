@@ -40,7 +40,7 @@ public class Main {
     private final CliOptions cliOptions;
     
     /** Per project map of histograms. */
-    private final Map<String, Map<?, ?>> perProjectResults;
+    private final Map<String, CommitReceiver> perProjectResults;
     
     Main(CliOptions cliOptions) {
         this.cliOptions = Objects.requireNonNull(cliOptions);
@@ -52,8 +52,16 @@ public class Main {
         if (cliOptions.getOutput() != null) {
             out = new PrintStream(Files.newOutputStream(cliOptions.getOutput()));
         }
+
+        final Map<String, Map<?, ?>> perProjectMaps = new HashMap<>();
+        perProjectResults.entrySet()
+                .stream().forEach(
+                        e -> perProjectMaps.put(e.getKey(),
+                        e.getValue().copy()));
+
         CommitReceiver<Object,Object> template = cliOptions.getFlavor().newInstance(cliOptions.getReportSetup());
-        new CSVConsumer(out).consume(perProjectResults, 
+        new CSVConsumer(out).consume(
+                perProjectMaps,
                 (o) -> template.keyToString(o),
                 (o) -> template.valueToString(o),
                 () -> template.getNullEntry());
@@ -67,7 +75,7 @@ public class Main {
                 .filter(c -> cliOptions.getFrom() != null ? c.getWhen().toLocalDate().toEpochDay() >= cliOptions.getFrom().toEpochDay() : true)
                 .filter(c -> cliOptions.getTo() != null ? c.getWhen().toLocalDate().toEpochDay() <= cliOptions.getTo().toEpochDay() : true)
                 .forEach(c -> receiver.receive(c, cliOptions.getTimeInterval().truncate(c.getWhen().toLocalDate())));
-        perProjectResults.put(walker.getName(), receiver.copy());
+        perProjectResults.put(walker.getName(), receiver);
     }
     
     public static void main(String ...args) throws IOException {

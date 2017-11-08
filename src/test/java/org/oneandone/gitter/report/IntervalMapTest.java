@@ -38,7 +38,9 @@ public class IntervalMapTest {
     @Before
     public void init() {
          reportSetup = new ReportSetup(TimeInterval.MONTHS, 
-            LocalDate.of(2016, Month.FEBRUARY, 1), LocalDate.of(2016, Month.APRIL, 30), 
+            Optional.of(LocalDate.of(2016, Month.FEBRUARY, 1)),
+            Optional.of(LocalDate.of(2016, Month.APRIL, 30)),
+            Optional.empty(),
             Optional.empty());
         instance = new IntervalMap<Integer>(reportSetup) {
             @Override
