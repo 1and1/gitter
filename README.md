@@ -3,27 +3,33 @@
 Gitter is a Git statistics tool. It can process multiple repositories
 and report statistics or commit traffic on them.
 
+The repositories must be checked out in the local file system for
+Gitter to work.
+
 ## Command line options
 
 The command line options are listed here:
 
-     DIR                                    : GIT repository dirs.
-     -I (--interval) [YEARS | MONTHS |      : The time interval to use.
-     DAYS]                                     
-     -f (--from) DATE                       : From timestamp to use for filtering,
-                                              for example 2015-12-31.
-     -h (--help)                            : Show this help message.
-     -o (--output) FILE                     : The output file.
-     -p (--pattern) REGEX                   : Short message pattern.
-     -r (--report) [COMMITS_PER_AUTHOR |    : The type of report to calculate.
-     COMMITS_PER_INTERVAL | AUTHORS_PER_INT    
-     ERVAL | AUTHORS_COMMITS_PER_INTERVAL      
-     | DAYTIMES_PER_INTERVAL |                 
-     MESSAGE_PATTERN_PER_AUTHOR |              
-     MESSAGE_PATTERN_PER_INTERVAL |            
-     PATCH_SCRIPT_SIZE_PER_INTERVAL]           
-     -t (--to) DATE                         : To timestamp to use for filtering,
-                                              for example 2015-12-31.
+    DIR                                    : GIT repository dirs.
+    -I (--interval) [YEARS | MONTHS |      : The time interval to use.
+    DAYS]                                     
+    -f (--from) DATE                       : From timestamp to use for filtering,
+                                             for example 2015-12-31.
+    -h (--help)                            : Show this help message.
+    -o (--output) FILE                     : The output file.
+    -p (--pattern) REGEX                   : Short message pattern.
+    -r (--report) [COMMITS_PER_AUTHOR |    : The type of report to calculate.
+    COMMITS_PER_INTERVAL | AUTHORS_PER_INT    
+    ERVAL | AUTHORS_COMMITS_PER_INTERVAL      
+    | DAYTIMES_PER_INTERVAL |                 
+    MESSAGE_PATTERN_PER_AUTHOR |              
+    MESSAGE_PATTERN_PER_INTERVAL |            
+    PATCH_SCRIPT_SIZE_PER_INTERVAL]           
+    -t (--to) DATE                         : To timestamp to use for filtering,
+                                             for example 2015-12-31.
+    -w (--committer) REGEX                 : The committer to filter for as a
+                                             regex.
+
 
 The *from* and *to* options and *DIR* arguments are always required.
 
