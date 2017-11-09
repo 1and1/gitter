@@ -60,11 +60,15 @@ Shows the number of commits per project and per interval.
 Shows which authors were active on which project in which interval.
 The author names are shortened to their initials.
 
+In the following example the authors initials are taken. "Peter Huber" will have the initials "PH":
+
 ![Authors per Interval](https://raw.githubusercontent.com/1and1/gitter/master/images/authors_per_interval.png "Authors per Interval")
 
 ### AUTHORS_COMMITS__PER_INTERVAL
 
 Similar to AUTHORS_PER_INTERVAL, but also shows the number of commits per author.
+
+In the following example the authors initials are taken. "Peter Huber" will have the initials "PH":
 
 ![Authors commits per Interval](https://raw.githubusercontent.com/1and1/gitter/master/images/authors_commits_per_interval.png "Authors Commits per Interval")
 
@@ -80,6 +84,8 @@ Matches a regular expression against each commit message and shows the
 resulting matches per author. This report is useful for extracting
 ticket numbers from commit messages and displaying them per project.
 
+In the following example the issue numbers (#1234) of Github were taken as a pattern:
+
 ![Message pattern per author](https://raw.githubusercontent.com/1and1/gitter/master/images/message_pattern_per_author.png "Message patterns per author")
 
 ### MESSAGE_PATTERN_PER_INTERVAL
@@ -87,6 +93,8 @@ ticket numbers from commit messages and displaying them per project.
 Matches a regular expression against each commit message and shows the 
 resulting matches per time interval. This report is useful for extracting
 ticket numbers from commit messages and displaying them per project.
+
+In the following example the issue numbers (#1234) of Github were taken as a pattern:
 
 ![Message pattern per interval](https://raw.githubusercontent.com/1and1/gitter/master/images/message_pattern_per_interval.png "Message patterns per interval")
 
