@@ -51,18 +51,26 @@ Shows the number of commits per project and per author.
 
 Shows the number of commits per project and per interval. 
 
+![Commits per Interval](https://raw.githubusercontent.com/1and1/gitter/master/images/commits_per_interval.png "Commits per Interval")
+
 ### AUTHORS_PER_INTERVAL
 
 Shows which authors were active on which project in which interval.
 The author names are shortened to their initials.
 
+![Authors per Interval](https://raw.githubusercontent.com/1and1/gitter/master/images/authors_per_interval.png "Authors per Interval")
+
 ### AUTHORS_COMMITS__PER_INTERVAL
 
 Similar to AUTHORS_PER_INTERVAL, but also shows the number of commits per author.
 
+![Authors commits per Interval](https://raw.githubusercontent.com/1and1/gitter/master/images/authors_commits_per_interval.png "Authors Commits per Interval")
+
 ### DAYTIMES_PER_INTERVAL
 
 At which times do the commits happen every day?
+
+![Daytimes per Interval](https://raw.githubusercontent.com/1and1/gitter/master/images/daytimes_per_interval.png "Daytimes per Interval")
 
 ### MESSAGE_PATTERN_PER_AUTHOR
 
@@ -70,11 +78,15 @@ Matches a regular expression against each commit message and shows the
 resulting matches per author. This report is useful for extracting
 ticket numbers from commit messages and displaying them per project.
 
+![Message patterns per author](https://raw.githubusercontent.com/1and1/gitter/master/images/message_patterns_per_author.png "Message patterns per author")
+
 ### MESSAGE_PATTERN_PER_INTERVAL
 
 Matches a regular expression against each commit message and shows the 
 resulting matches per time interval. This report is useful for extracting
 ticket numbers from commit messages and displaying them per project.
+
+![Message patterns per interval](https://raw.githubusercontent.com/1and1/gitter/master/images/message_patterns_per_interval.png "Message patterns per interval")
 
 ### PATCH_SCRIPT_SIZE_PER_INTERVAL
 
