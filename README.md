@@ -78,7 +78,7 @@ Matches a regular expression against each commit message and shows the
 resulting matches per author. This report is useful for extracting
 ticket numbers from commit messages and displaying them per project.
 
-![Message patterns per author](https://raw.githubusercontent.com/1and1/gitter/master/images/message_patterns_per_author.png "Message patterns per author")
+![Message pattern per author](https://raw.githubusercontent.com/1and1/gitter/master/images/message_pattern_per_author.png "Message patterns per author")
 
 ### MESSAGE_PATTERN_PER_INTERVAL
 
@@ -86,7 +86,7 @@ Matches a regular expression against each commit message and shows the
 resulting matches per time interval. This report is useful for extracting
 ticket numbers from commit messages and displaying them per project.
 
-![Message patterns per interval](https://raw.githubusercontent.com/1and1/gitter/master/images/message_patterns_per_interval.png "Message patterns per interval")
+![Message pattern per interval](https://raw.githubusercontent.com/1and1/gitter/master/images/message_pattern_per_interval.png "Message patterns per interval")
 
 ### PATCH_SCRIPT_SIZE_PER_INTERVAL
 
