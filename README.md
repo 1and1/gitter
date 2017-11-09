@@ -64,6 +64,8 @@ In the following example the authors initials are taken. "Peter Huber" will have
 
 ![Authors per Interval](https://raw.githubusercontent.com/1and1/gitter/master/images/authors_per_interval.png "Authors per Interval")
 
+Please note that the abbreviation with name initials works best for a limited set of developers.
+
 ### AUTHORS_COMMITS__PER_INTERVAL
 
 Similar to AUTHORS_PER_INTERVAL, but also shows the number of commits per author.
