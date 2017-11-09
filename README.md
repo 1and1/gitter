@@ -8,7 +8,7 @@ Gitter to work.
 
 ## How it looks like
 
-Here is an image showing the commits per interval of the open source git repositories of Ansible and GoCD in 2017:
+Here is an image showing the commits per interval of the open source git repositories of [Ansible](https://github.com/ansible/ansible) and [GoCD](https://github.com/gocd/gocd) in 2017:
 
 ![Commits per Interval](https://raw.githubusercontent.com/1and1/gitter/master/images/commits_per_interval.png "Commits per Interval")
 
