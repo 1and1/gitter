@@ -12,6 +12,13 @@ Here is an image showing the commits per interval of the open source git reposit
 
 ![Commits per Interval](https://raw.githubusercontent.com/1and1/gitter/master/images/commits_per_interval.png "Commits per Interval")
 
+## Features
+
+The features of this Git statistics tool are:
+* Quick.
+* Multiple reports (see below).
+* Can extract misc strings from the commit message, for example ticket numbers.
+
 ## Command line options
 
 The command line options are listed here:
