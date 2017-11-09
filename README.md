@@ -47,6 +47,8 @@ This section shows an overview of available reports (aka flavors in the options)
 
 Shows the number of commits per project and per author. 
 
+![Commits per Interval](https://raw.githubusercontent.com/1and1/gitter/master/images/commits_per_interval.png "Commits per Interval")
+
 ### COMMITS_PER_INTERVAL
 
 Shows the number of commits per project and per interval. 
