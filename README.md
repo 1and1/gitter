@@ -6,6 +6,12 @@ and report statistics or commit traffic on them.
 The repositories must be checked out in the local file system for
 Gitter to work.
 
+## How it looks like
+
+Here is an image showing the commits per interval of the open source git repositories of Ansible and GoCD in 2017:
+
+![Commits per Interval](https://raw.githubusercontent.com/1and1/gitter/master/images/commits_per_interval.png "Commits per Interval")
+
 ## Command line options
 
 The command line options are listed here:
