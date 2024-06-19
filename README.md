@@ -1,5 +1,7 @@
 # Gitter
 
+*This project has been set to read-only since there is no longer an active maintainer in the organization.*
+
 Gitter is a Git statistics tool. It can process multiple repositories
 and report statistics or commit traffic on them.
 
